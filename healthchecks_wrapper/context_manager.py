@@ -1,29 +1,49 @@
 """Main module."""
 import json
+import re
+import socket
+import urllib.request
 from contextlib import ContextDecorator
 from io import StringIO
 
-import requests
+try:
+    # python2
+    from urlparse import urlparse
+except:
+    # python3
+    from urllib.parse import urlparse
+
+# Shamelessly stolen from Django's url validator https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
+regex = re.compile(
+    r"^(?:http|ftp)s?://"  # http:// or https://
+    r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"  # domain...
+    r"localhost|"  # localhost...
+    r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"  # ...or ip
+    r"(?::\d+)?"  # optional port
+    r"(?:/?|[/?]\S+)$",
+    re.IGNORECASE,
+)
 
 
 class HealthCheck(ContextDecorator):
-    def send_request(self, post_fix, additional_data):
-        if not additional_data:
-            requests.get(self.url + post_fix, timeout=10)
-        else:
-            if type(additional_data) is dict:
-                additional_data = json.dumps(additional_data)
-            requests.post(self.url + post_fix, timeout=10, data=additional_data)
+    def __init__(self, health_check_url, suppress_exceptions=False):
+        """Wrapper around HealthChecks.io
 
-    def __init__(self, health_check_url):
-        self.url = health_check_url
+        Args:
+            health_check_url (str): A valid url to send request
+            suppress_exceptions (bool, optional): [description]. Defaults to False.
+        """
+        if not regex.match(health_check_url):
+            raise ValueError(f"Invalid URL provided : {health_check_url}")
+        self.health_check_url = health_check_url
+        self.suppress_exceptions = suppress_exceptions
 
     def __enter__(self):
-        return self.send_request("/start", None)
+        return self.send_request("/start")
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         if exc_type is None:
-            self.send_request("", None)
+            self.send_request("")
         else:
             top_stack = StringIO()
 
@@ -36,8 +56,16 @@ class HealthCheck(ContextDecorator):
             full_stack.write("\n")
 
             full_stack.write("{}: {}".format(exc_type.__name__, str(exc_value)))
-            sinfo = full_stack.getvalue()
+            sinfo = full_stack.getvalue().encode("utf-8")
             full_stack.close()
 
             self.send_request("/fail", sinfo)
-        return True
+        return self.suppress_exceptions
+
+    def send_request(self, post_fix, text_message=None):
+        try:
+            urllib.request.urlopen(
+                self.health_check_url + post_fix, timeout=10, data=text_message
+            )
+        except socket.error as e:
+            print("Ping failed: %s" % e)
