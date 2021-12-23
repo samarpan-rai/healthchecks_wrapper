@@ -48,3 +48,9 @@ def test_when_bad_url_is_provided_then_raise_exception():
     with pytest.raises(ValueError):
         with HealthCheck("https://thiisbad"):
             print("Nothing to suspect")
+
+
+def test_when_no_url_is_provided_then_raise_exception():
+    with pytest.raises(ValueError):
+        with HealthCheck(""):
+            print("Nothing to suspect")

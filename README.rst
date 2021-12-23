@@ -6,17 +6,40 @@ HealthChecks Context Manager
         :target: https://pypi.org/project/healthchecks-wrapper
 
 
-Context manager around service provided by HealthChecks for easy use
+Context manager around service provided by `healthchecks.io <https://healthchecks.io/>`_ for easy use. 
+
+
 
 * Free software: MIT license
 
 
 Features
 --------
-
+* Zero requirements outside the standard library
 * Easily report the status of your python jobs
 * Reports exceptions to HealthChecks as meta data
 
+
+
+Getting started
+--------
+Make a free account with at `healthchecks.io <https://healthchecks.io/>`_ and create a check. You need to copy the url of the check endpoint. 
+
+Install the dependencies
+
+::
+
+  pip install healthchecks-wrapper
+
+Use it in your job
+
+::
+
+  from healthchecks_wrapper import HealthCheck
+
+  with HealthCheck(valid_ping_url):
+    # Your job
+      ...
 
 Credits
 -------

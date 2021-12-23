@@ -27,7 +27,7 @@ regex = re.compile(
 
 class HealthCheck(ContextDecorator):
     def __init__(self, health_check_url, suppress_exceptions=False):
-        """Wrapper around HealthChecks.io
+        """Wrapper around HealthChecks.io to log job status
 
         Args:
             health_check_url (str): A valid url to send request
