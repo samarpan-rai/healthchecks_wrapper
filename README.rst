@@ -2,12 +2,8 @@
 HealthChecks Context Manager
 ============================
 
-
-.. image:: https://img.shields.io/pypi/v/healthchecks_context_manager.svg
+.. image:: https://img.shields.io/pypi/v/healthchecks-wrapper.svg
         :target: https://pypi.org/project/healthchecks-wrapper
-
-.. image:: https://img.shields.io/travis/samarpan-rai/healthchecks_context_manager.svg
-        :target: https://travis-ci.com/samarpan-rai/healthchecks_context_manager
 
 
 Context manager around service provided by HealthChecks for easy use
