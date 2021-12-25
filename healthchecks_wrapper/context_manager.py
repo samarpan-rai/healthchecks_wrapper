@@ -2,7 +2,12 @@
 import json
 import re
 import socket
-import urllib.request
+try:
+    #python 2
+    import urllib2.request
+except:
+    import urllib.request
+
 from contextlib import ContextDecorator
 from io import StringIO
 
