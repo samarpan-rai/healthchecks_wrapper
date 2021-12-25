@@ -4,9 +4,9 @@ import re
 import socket
 try:
     #python 2
-    import urllib2.request
+    from urllib2 import urlopen
 except:
-    import urllib.request
+    from urllib.request import urlopen
 
 from contextlib import ContextDecorator
 from io import StringIO
@@ -69,7 +69,7 @@ class HealthCheck(ContextDecorator):
 
     def send_request(self, post_fix, text_message=None):
         try:
-            urllib.request.urlopen(
+            urlopen(
                 self.health_check_url + post_fix, timeout=10, data=text_message
             )
         except socket.error as e:
