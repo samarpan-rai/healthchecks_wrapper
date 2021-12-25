@@ -13,7 +13,7 @@ with open("HISTORY.rst") as history_file:
 requirements = []
 
 test_requirements = [
-    "pytest>=3",
+    "pytest>=2.7",
 ]
 
 setup(
@@ -37,6 +37,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/samarpan-rai/healthchecks_wrapper",
-    version="0.1.0",
+    version="0.1.1",
     zip_safe=False,
 )
