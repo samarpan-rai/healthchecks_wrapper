@@ -8,7 +8,6 @@ try:
 except:
     from urllib.request import urlopen
 
-from contextlib import ContextDecorator
 from io import StringIO
 
 try:
@@ -30,7 +29,7 @@ regex = re.compile(
 )
 
 
-class HealthCheck(ContextDecorator):
+class HealthCheck:
     def __init__(self, health_check_url, suppress_exceptions=False):
         """Wrapper around HealthChecks.io to log job status
 
