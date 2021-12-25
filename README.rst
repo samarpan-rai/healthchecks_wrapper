@@ -1,17 +1,17 @@
 ============================
-HealthChecks Context Manager
+Simple HealthChecks Wrapper
 ============================
 
 .. image:: https://img.shields.io/pypi/v/healthchecks-wrapper.svg
         :target: https://pypi.org/project/healthchecks-wrapper
 
+.. image:: https://readthedocs.org/projects/healthchecks-wrapper/badge/?version=latest
+    :target: https://healthchecks-wrapper.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 Context manager around service provided by `healthchecks.io <https://healthchecks.io/>`_ for easy use. 
 
-
-
 * Free software: MIT license
-
 
 Features
 --------

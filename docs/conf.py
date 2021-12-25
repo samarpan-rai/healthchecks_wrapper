@@ -47,7 +47,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "HealthChecks Context Manager"
+project = "Simple HealthChecks.io Wrapper"
 copyright = "2021, Samarpan Rai"
 author = "Samarpan Rai"
 
@@ -128,7 +128,7 @@ latex_documents = [
     (
         master_doc,
         "healthchecks_context_manager.tex",
-        "HealthChecks Context Manager Documentation",
+        "HealthChecks Wrapper Documentation",
         "Samarpan Rai",
         "manual",
     ),
@@ -143,7 +143,7 @@ man_pages = [
     (
         master_doc,
         "healthchecks_context_manager",
-        "HealthChecks Context Manager Documentation",
+        "HealthChecks Wrapper Documentation",
         [author],
         1,
     )
@@ -159,10 +159,10 @@ texinfo_documents = [
     (
         master_doc,
         "healthchecks_context_manager",
-        "HealthChecks Context Manager Documentation",
+        "HealthChecks Wrapper Documentation",
         author,
         "healthchecks_context_manager",
-        "One line description of project.",
+        "A simple python context manager for HealthChecks.",
         "Miscellaneous",
     ),
 ]

@@ -1,4 +1,4 @@
-Welcome to HealthChecks Context Manager's documentation!
+Welcome to Documentation for HealthChecks.io wrapper
 ======================================
 
 .. toctree::
