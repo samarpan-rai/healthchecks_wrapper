@@ -13,13 +13,13 @@ with open("HISTORY.rst") as history_file:
 requirements = []
 
 test_requirements = [
-    "pytest>=2.7",
+    "pytest>=3.6",
 ]
 
 setup(
     author="Samarpan Rai",
     author_email="samarpan-rai@live.com",
-    python_requires=">=2.7",
+    python_requires=">=3.6",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
