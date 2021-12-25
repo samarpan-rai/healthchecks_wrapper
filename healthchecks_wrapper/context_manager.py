@@ -34,7 +34,7 @@ class HealthCheck(ContextDecorator):
             suppress_exceptions (bool, optional): [description]. Defaults to False.
         """
         if not regex.match(health_check_url):
-            raise ValueError(f"Invalid URL provided : {health_check_url}")
+            raise ValueError("Invalid URL provided : {}".format(health_check_url))
         self.health_check_url = health_check_url
         self.suppress_exceptions = suppress_exceptions
 
