@@ -22,7 +22,7 @@ Features
 
 
 Getting started
---------
+---------------
 Make a free account with at `healthchecks.io <https://healthchecks.io/>`_ and create a check. You need to copy the url of the check endpoint. 
 
 Install the dependencies
