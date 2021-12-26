@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-18.04
     name: Install and test
     steps:
+      - uses: actions/checkout@master
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
       - name: Install Testing Dependencies
         run: make install-test
       - name: Automated Checking Mechanism
