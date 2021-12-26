@@ -90,3 +90,6 @@ install: clean ## install the package to the active Python's site-packages
 
 install-test:
 	pip install -r requirements_test.txt
+
+install-dev:
+	pip install -r requirements_dev.txt
