@@ -2,8 +2,12 @@
 import json
 import re
 import socket
-import urllib.request
-from contextlib import ContextDecorator
+try:
+    #python 2
+    from urllib2 import urlopen
+except:
+    from urllib.request import urlopen
+
 from io import StringIO
 
 try:
@@ -25,7 +29,7 @@ regex = re.compile(
 )
 
 
-class HealthCheck(ContextDecorator):
+class HealthCheck:
     def __init__(self, health_check_url, suppress_exceptions=False):
         """Wrapper around HealthChecks.io to log job status
 
@@ -34,7 +38,7 @@ class HealthCheck(ContextDecorator):
             suppress_exceptions (bool, optional): [description]. Defaults to False.
         """
         if not regex.match(health_check_url):
-            raise ValueError(f"Invalid URL provided : {health_check_url}")
+            raise ValueError("Invalid URL provided : {}".format(health_check_url))
         self.health_check_url = health_check_url
         self.suppress_exceptions = suppress_exceptions
 
@@ -64,7 +68,7 @@ class HealthCheck(ContextDecorator):
 
     def send_request(self, post_fix, text_message=None):
         try:
-            urllib.request.urlopen(
+            urlopen(
                 self.health_check_url + post_fix, timeout=10, data=text_message
             )
         except socket.error as e:
