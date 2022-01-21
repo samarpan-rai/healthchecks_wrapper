@@ -2,20 +2,8 @@
 import json
 import re
 import socket
-try:
-    #python 2
-    from urllib2 import urlopen
-except:
-    from urllib.request import urlopen
-
 from io import StringIO
-
-try:
-    # python2
-    from urlparse import urlparse
-except:
-    # python3
-    from urllib.parse import urlparse
+from urllib.request import urlopen
 
 # Shamelessly stolen from Django's url validator https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
 regex = re.compile(
@@ -68,8 +56,6 @@ class HealthCheck:
 
     def send_request(self, post_fix, text_message=None):
         try:
-            urlopen(
-                self.health_check_url + post_fix, timeout=10, data=text_message
-            )
+            urlopen(self.health_check_url + post_fix, timeout=10, data=text_message)
         except socket.error as e:
             print("Ping failed: %s" % e)

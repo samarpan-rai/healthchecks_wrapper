@@ -21,7 +21,6 @@ setup(
     author_email="samarpan-rai@live.com",
     python_requires=">=3.6",
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
@@ -37,6 +36,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/samarpan-rai/healthchecks_wrapper",
-    version="0.1.2",
+    version="0.1.3",
     zip_safe=False,
 )
