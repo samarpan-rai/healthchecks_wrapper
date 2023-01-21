@@ -41,7 +41,7 @@ def test_when_suppress_exception_is_enabled_then_do_not_pass_through_exception(
                 "test_when_suppress_exception_is_enabled_then_do_not_pass_through_exception"
             )
     except RuntimeError:
-        pytest.fail("Error not supreseed")
+        pytest.fail("Error not suppressed")
 
 
 def test_when_bad_url_is_provided_then_raise_exception():
