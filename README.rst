@@ -9,9 +9,10 @@ Simple HealthChecks Wrapper
     :target: https://healthchecks-wrapper.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
+
 Context manager around service provided by `healthchecks.io <https://healthchecks.io/>`_ for easy use. 
 
-* Free software: MIT license
+Free software: MIT license
 
 Features
 --------
@@ -40,6 +41,14 @@ Use it in your job
   with HealthCheck(valid_ping_url):
     # Your job
       ...
+
+.. raw:: html
+
+    <embed>
+    
+    <a href="https://www.buymeacoffee.com/samarpanrai" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+    </embed>
+
 
 Credits
 -------
