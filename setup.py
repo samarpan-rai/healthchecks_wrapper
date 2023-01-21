@@ -5,8 +5,7 @@
 from setuptools import find_packages, setup
 
 with open("README.md") as readme_file:
-    readme = readme_file.read_text()
-
+    readme = readme_file.read()
 
 requirements = []
 
@@ -35,6 +34,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/samarpan-rai/healthchecks_wrapper",
-    version="0.1.3",
+    version="0.1.4",
     zip_safe=False,
 )
