@@ -2,6 +2,6 @@
 
 __author__ = """Samarpan Rai"""
 __email__ = "samarpan-rai@live.com"
-__version__ = "0.1.4"
+__version__ = "0.1.5"
 
 from .context_manager import HealthCheck
