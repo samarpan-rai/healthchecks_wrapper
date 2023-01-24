@@ -11,7 +11,7 @@ Context manager around service provided by [healthchecks.io](https://healthcheck
 
 * Zero requirements outside the standard library
 * Easily report the status of your python jobs
-* Reports exceptions to HealthChecks as meta data
+* Supports both sync and async jobs
 
 ### Getting started
 Make a free account with at [healthchecks.io](https://healthchecks.io/) and create a check. You need to copy the url of the check endpoint.
@@ -26,11 +26,19 @@ Use it in your code
 
 ```python
 from healthchecks_wrapper import HealthCheck
+import asyncio
 valid_ping_url = "https://hc-ping.com/b2b308a5-765c-4136-8d0a-2ff0b906e3ee"  # Replace with your job url
 
+# Sync jobs
 with HealthCheck(valid_ping_url):
     # Do your job
-    ...
+    print("hi")
+
+# ASync jobs
+async with HealthCheck(valid_ping_url):
+    # Do your job
+    await asyncio.sleep(1) # Read database async
+    print("hi")
 ```
 
 
