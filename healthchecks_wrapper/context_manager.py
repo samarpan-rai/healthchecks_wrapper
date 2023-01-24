@@ -1,6 +1,8 @@
 """Main module."""
+import asyncio
 import traceback
 import socket
+from functools import partial
 from urllib.request import urlopen
 from .functions import is_invalid_url
 
@@ -9,6 +11,8 @@ from .functions import is_invalid_url
 JOB_START_POST_FIX = "/start"
 JOB_END_POST_FIX = ""
 JOB_FAILURE_PATH = "/fail"
+
+TIMEOUT = 10
 
 
 class HealthCheck:
@@ -36,8 +40,22 @@ class HealthCheck:
             self.send_request(JOB_FAILURE_PATH, payload)
         return self.suppress_exceptions
 
-    def send_request(self, post_fix, text_message=None):
+    async def send_request(self, post_fix, payload=None):
         try:
-            urlopen(self.health_check_url + post_fix, timeout=10, data=text_message)
+            pfunc = partial(urlopen, self.health_check_url + post_fix, timeout=TIMEOUT, data=payload)
+            await asyncio.get_event_loop().run_in_executor(None, pfunc)
         except socket.error as e:
             print("Ping failed: %s" % e)
+
+    async def __aenter__(self):
+        await self.send_request(JOB_START_POST_FIX)
+        return self
+
+    async def __aexit__(self, exc_type, exc_value, exc_traceback):
+        if exc_type is None:
+            await self.send_request(JOB_END_POST_FIX)
+        else:
+            stack_trace = "".join(traceback.format_exception(exc_type, exc_value, exc_traceback))
+            payload = stack_trace.encode("utf-8")
+            await self.send_request(JOB_FAILURE_PATH, payload)
+        return self.suppress_exceptions

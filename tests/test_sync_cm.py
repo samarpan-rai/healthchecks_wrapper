@@ -1,15 +1,5 @@
-#!/usr/bin/env python
-
-"""Tests for `healthchecks_context_manager` package."""
-
 import pytest
-
 from healthchecks_wrapper import HealthCheck
-
-
-@pytest.fixture
-def valid_ping_url():
-    return "https://hc-ping.com/b2b308a5-765c-4136-8d0a-2ff0b906e3ee"
 
 
 def test_when_explicit_suppress_exception_is_disabled_then_pass_through_exception(
@@ -17,9 +7,7 @@ def test_when_explicit_suppress_exception_is_disabled_then_pass_through_exceptio
 ):
     with pytest.raises(RuntimeError):
         with HealthCheck(valid_ping_url, suppress_exceptions=False):
-            raise RuntimeError(
-                "test_when_explicit_suppress_exception_is_disabled_then_pass_through_exception"
-            )
+            raise RuntimeError
 
 
 def test_when_implicit_suppress_exception_is_disabled_then_pass_through_exception(
@@ -27,9 +15,7 @@ def test_when_implicit_suppress_exception_is_disabled_then_pass_through_exceptio
 ):
     with pytest.raises(RuntimeError):
         with HealthCheck(valid_ping_url):
-            raise RuntimeError(
-                "test_when_implicit_suppress_exception_is_disabled_then_pass_through_exception"
-            )
+            raise RuntimeError
 
 
 def test_when_suppress_exception_is_enabled_then_do_not_pass_through_exception(
@@ -37,9 +23,7 @@ def test_when_suppress_exception_is_enabled_then_do_not_pass_through_exception(
 ):
     try:
         with HealthCheck(valid_ping_url, suppress_exceptions=True):
-            raise RuntimeError(
-                "test_when_suppress_exception_is_enabled_then_do_not_pass_through_exception"
-            )
+            raise RuntimeError
     except RuntimeError:
         pytest.fail("Error not suppressed")
 
