@@ -34,11 +34,19 @@ with HealthCheck(valid_ping_url):
     # Do your job
     print("hi")
 
-# ASync jobs
-async with HealthCheck(valid_ping_url):
-    # Do your job
-    await asyncio.sleep(1) # Read database async
-    print("hi")
+# Async jobs requires a bit more boiler plate code
+async def print_hi():
+    async with HealthCheck(valid_ping_url):
+        # Do your job
+        await asyncio.sleep(1) # Read database async
+        print("hi")
+
+def main():
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(print_hi())
+    loop.close()
+
+main()
 ```
 
 

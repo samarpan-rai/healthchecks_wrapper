@@ -4,6 +4,18 @@ from healthchecks_wrapper import HealthCheck
 
 
 @pytest.mark.asyncio
+async def test_when_body_returns_no_error_then_no_error_should_be_raised(
+    valid_ping_url,
+):
+    try:
+        async with HealthCheck(valid_ping_url):
+            await asyncio.sleep(0.01)
+            print("Hello world")
+    except Exception:
+        pytest.fail("Error raised")
+
+
+@pytest.mark.asyncio
 async def test_when_explicit_suppress_exception_is_disabled_then_pass_through_exception(
     valid_ping_url,
 ):

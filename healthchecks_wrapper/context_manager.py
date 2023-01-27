@@ -35,27 +35,39 @@ class HealthCheck:
         if exc_type is None:
             self.send_request(JOB_END_POST_FIX)
         else:
-            stack_trace = "".join(traceback.format_exception(exc_type, exc_value, exc_traceback))
+            stack_trace = "".join(
+                traceback.format_exception(exc_type, exc_value, exc_traceback)
+            )
             payload = stack_trace.encode("utf-8")
             self.send_request(JOB_FAILURE_PATH, payload)
         return self.suppress_exceptions
 
-    async def send_request(self, post_fix, payload=None):
+    def send_request(self, post_fix, text_message=None):
         try:
-            pfunc = partial(urlopen, self.health_check_url + post_fix, timeout=TIMEOUT, data=payload)
+            urlopen(self.health_check_url + post_fix, timeout=10, data=text_message)
+        except socket.error as e:
+            print("Ping failed: %s" % e)
+
+    async def send_request_async(self, post_fix, payload=None):
+        try:
+            pfunc = partial(
+                urlopen, self.health_check_url + post_fix, timeout=TIMEOUT, data=payload
+            )
             await asyncio.get_event_loop().run_in_executor(None, pfunc)
         except socket.error as e:
             print("Ping failed: %s" % e)
 
     async def __aenter__(self):
-        await self.send_request(JOB_START_POST_FIX)
+        await self.send_request_async(JOB_START_POST_FIX)
         return self
 
     async def __aexit__(self, exc_type, exc_value, exc_traceback):
         if exc_type is None:
-            await self.send_request(JOB_END_POST_FIX)
+            await self.send_request_async(JOB_END_POST_FIX)
         else:
-            stack_trace = "".join(traceback.format_exception(exc_type, exc_value, exc_traceback))
+            stack_trace = "".join(
+                traceback.format_exception(exc_type, exc_value, exc_traceback)
+            )
             payload = stack_trace.encode("utf-8")
-            await self.send_request(JOB_FAILURE_PATH, payload)
+            await self.send_request_async(JOB_FAILURE_PATH, payload)
         return self.suppress_exceptions
