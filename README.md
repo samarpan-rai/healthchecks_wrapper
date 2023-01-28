@@ -3,7 +3,7 @@
 
 [<img src="https://img.shields.io/pypi/v/healthchecks-wrapper.svg">](https://pypi.org/project/healthchecks-wrapper)
 [<img src="https://readthedocs.org/projects/healthchecks-wrapper/badge/?version=latest">](https://healthchecks-wrapper.readthedocs.io/en/latest/?badge=latest)
-[![buy me a coffee](https://img.shields.io/badge/If%20you%20like%20it-Buy%20me%20a%20coffee-orange.svg?style=for-the-badge)](https://www.buymeacoffee.com/samarpanrai)
+[![Downloads](https://static.pepy.tech/badge/healthchecks-wrapper/month)](https://pepy.tech/project/healthchecks-wrapper)
 
 Context manager around service provided by [healthchecks.io](https://healthchecks.io/) that will ping your check URL for both success and failure (includes stack trace).
 
