@@ -1,9 +1,13 @@
-"""Main module."""
 import asyncio
 import logging
 import socket
 from functools import partial
 from urllib.request import urlopen
+
+# Constants required by HealthChecks.io
+JOB_START_POST_FIX = "/start"
+JOB_END_POST_FIX = ""
+JOB_FAILURE_PATH = "/fail"
 
 TIMEOUT = 10
 

@@ -2,15 +2,13 @@
 import logging
 import traceback
 
-from .api import send_request, asend_request
+from .api import send_request
+from .api import asend_request
+from .api import JOB_START_POST_FIX
+from .api import JOB_END_POST_FIX
+from .api import JOB_FAILURE_PATH
+
 from .functions import is_invalid_url
-
-# Constants required by HealthChecks.io
-
-JOB_START_POST_FIX = "/start"
-JOB_END_POST_FIX = ""
-JOB_FAILURE_PATH = "/fail"
-
 
 logger = logging.getLogger(__name__)
 
