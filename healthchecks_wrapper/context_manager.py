@@ -1,5 +1,6 @@
 """Main module."""
 import asyncio
+import logging
 import traceback
 import socket
 from functools import partial
@@ -14,6 +15,7 @@ JOB_FAILURE_PATH = "/fail"
 
 TIMEOUT = 10
 
+logger = logging.getLogger(__name__)
 
 class HealthCheck:
     def __init__(self, health_check_url, suppress_exceptions=False):
@@ -46,7 +48,7 @@ class HealthCheck:
         try:
             urlopen(self.health_check_url + post_fix, timeout=10, data=text_message)
         except socket.error as e:
-            print("Ping failed: %s" % e)
+            logger.info(f"Ping failed: {e}")
 
     async def send_request_async(self, post_fix, payload=None):
         try:
@@ -55,7 +57,7 @@ class HealthCheck:
             )
             await asyncio.get_event_loop().run_in_executor(None, pfunc)
         except socket.error as e:
-            print("Ping failed: %s" % e)
+            logger.info(f"Ping failed: {e}")
 
     async def __aenter__(self):
         await self.send_request_async(JOB_START_POST_FIX)
